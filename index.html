@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hardware Monitor</title>
+    <link href="css.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="window">
+        <div id="buttons">
+        
+        </div>
+        <div>
+            <div>
+                <span id="cpu"></span>
+            </div>
+            <div>
+                <span id="memory"></span>
+            </div>
+            <div>
+                <span id="disk"></span>
+            </div>
+            <div>
+                <span id="network"></span>
+            </div>
+            <div>
+                <span id="pids"></span>
+            </div>
+            <div>
+                <span id="error"></span>
+            </div>
+        </div>
+    
+    
+    </div>
+
+    <div>
+        <input type="text" id="inpIP" placeholder="127.0.0.1" value="127.0.0.1"/>
+        <input type="number" id="inpPort" placeholder="6789" value="6789"/>
+        <button id="butAdd">Add Server</button>
+    </div>
+
+
+    <script src="js.js"></script>
+</body>
+
+</html>
