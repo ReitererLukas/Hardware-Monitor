@@ -8,10 +8,15 @@
 
 <body>
     <div class="window">
-        <div id="buttons">
-        
+        <div id="tabbar">
+            <span id="tabButtons">
+
+            </span>
+            <span class="close">
+                X
+            </span>
         </div>
-        <div>
+        <div class="windows">
             <div>
                 <span id="cpu"></span>
             </div>
@@ -36,13 +41,15 @@
     </div>
 
     <div>
+        <input type="text" id="inpName" placeholder="Test 1" value="Test 1"/>
         <input type="text" id="inpIP" placeholder="127.0.0.1" value="127.0.0.1"/>
         <input type="number" id="inpPort" placeholder="6789" value="6789"/>
         <button id="butAdd">Add Server</button>
     </div>
 
 
-    <script src="js.js"></script>
+    <script src="js/js.js"></script>
+    <script src="js/mouseEvents.js"></script>
 </body>
 
 </html>
