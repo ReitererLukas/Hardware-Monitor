@@ -40,3 +40,13 @@
     right: 0px;
     font-size: 12px;
 }
+
+#resizeRightDown {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    cursor: nwse-resize;
+}

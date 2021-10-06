@@ -1,5 +1,3 @@
-// import { ondown, onmove, onup } from "./moveWindow.js";
-
 let servers = [];
 document.addEventListener("DOMContentLoaded", onloaded);
 let websocket;
@@ -7,9 +5,20 @@ let websocket;
 
 function onloaded() {
     document.querySelector("#butAdd").onclick = onAdd;
+
+    // for mouse events --> moving and resizing window
     document.onmousemove = (ev) => onmove(ev);
-    document.querySelector("#tabbar").onmousedown = (ev) => ondown(ev);
-    document.querySelector("#tabbar").onmouseup = (ev) => onup(ev);
+    document.querySelector("#tabbar").onmousedown = (ev) => ondownDragWindow(ev);
+    document.querySelector("#tabbar").onmouseup = (ev) => onupDragWindow(ev);
+    document.querySelector(".window").onmouseup = (ev) => onupResizeWindow(ev);
+    document.querySelector(".window").onmousedown = (ev) => ondownResizeWindow(ev);
+
+    // event to close the window
+    document.querySelector(".close").onclick = closeWindow;
+}
+
+function closeWindow() {
+    document.querySelector(".window").remove();
 }
 
 function onAdd() {
@@ -22,6 +31,79 @@ function onAdd() {
 
     servers.push({ socket: ip + ":" + port, name: name });
     generateTabs();
+}
+
+function createWindow() {
+    let window = document.createElement("div");
+    window.className="window";
+
+    let tabbar = document.createElement("div");
+    tabbar.id = "tabbar"
+    let tabButtons = document.createElement("span");
+    tabButtons.id = "tabButtons";
+    tabbar.appendChild(tabButtons);
+    let close = document.createElement("span");
+    close.className = "close";
+    close.innerHTML="X";
+    tabbar.appendChild(close);
+    window.appendChild(tabbar);
+
+    let windows = document.createElement("div");
+    windows.className = "windows";
+
+    let cpuDiv = document.createElement("div");
+    let cpu = document.createElement("span");
+    cpu.id = "cpu";
+    cpuDiv.appendChild(cpu);
+    windows.appendChild(cpuDiv);
+
+    let memoryDiv = document.createElement("div");
+    let memory = document.createElement("span");
+    memory.id = "memory";
+    memoryDiv.appendChild(memory);
+    windows.appendChild(memoryDiv);
+
+    let diskDiv = document.createElement("div");
+    let disk = document.createElement("span");
+    disk.id = "disk";
+    diskDiv.appendChild(disk);
+    windows.appendChild(diskDiv);
+    
+    let networkDiv = document.createElement("div");
+    let network = document.createElement("span");
+    network.id = "network";
+    networkDiv.appendChild(network);
+    windows.appendChild(networkDiv);
+    
+    let pidsDiv = document.createElement("div");
+    let pids = document.createElement("span");
+    pids.id = "pids";
+    pidsDiv.appendChild(pids);
+    windows.appendChild(pidsDiv);
+    
+    let errorDiv = document.createElement("div");
+    let error = document.createElement("span");
+    error.id = "error";
+    errorDiv.appendChild(error);
+    windows.appendChild(errorDiv);
+
+    let resizeRightDown = document.createElement("span");
+    resizeRightDown.id = "resizeRightDown";
+    windows.appendChild(resizeRightDown);
+    
+    window.appendChild(windows);
+
+    document.querySelector("#body").appendChild(window);
+    
+
+    // for mouse events --> moving and resizing window
+    document.querySelector("#tabbar").onmousedown = (ev) => ondownDragWindow(ev);
+    document.querySelector("#tabbar").onmouseup = (ev) => onupDragWindow(ev);
+    document.querySelector(".window").onmouseup = (ev) => onupResizeWindow(ev);
+    document.querySelector(".window").onmousedown = (ev) => ondownResizeWindow(ev);
+
+    // event to close the window
+    document.querySelector(".close").onclick = closeWindow;
 }
 
 function verifyInput(ip, port, name) {
@@ -56,6 +138,10 @@ function closeTab(index) {
 }
 
 function generateTabs() {
+    if(document.querySelector(".window") === null) {
+        createWindow();
+    }
+
     let buttons = document.querySelector("#tabButtons");
 
     buttons.innerHTML = "";
