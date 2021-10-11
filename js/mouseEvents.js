@@ -1,6 +1,5 @@
 let isdragging = false, isResizing = false;
 let diffToX, diffToY;
-let x, y;
 
 function onmove(event) {
     let window = document.querySelector(".window");
@@ -30,10 +29,6 @@ function onupDragWindow(event) {
 }
 
 function ondownResizeWindow(event) {
-    // x = event.clientX - event.layerX;
-    // y = event.clientY - event.layerY;
-    // console.log(event);
-    // console.log(x + " : " + y);
     isResizing = true;
 }
 
