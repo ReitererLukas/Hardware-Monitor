@@ -7,11 +7,40 @@
 </head>
 
 <body id="body">
-    <div>
-        <input type="text" id="inpName" placeholder="Test 1" value="Test 1"/>
-        <input type="text" id="inpIP" placeholder="127.0.0.1" value="127.0.0.1"/>
-        <input type="number" id="inpPort" placeholder="6789" value="6789"/>
-        <button id="butAdd">Add Server</button>
+    <div id="add">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="inpName">Server name</label>
+                    </td>
+                    <td>
+                        <input type="text" id="inpName" placeholder="Test 1" value="Test 1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="inpIP">Server IP</label>
+                    </td>
+                    <td>
+                        <input type="text" id="inpIP" placeholder="127.0.0.1" value="127.0.0.1" /> </br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="inpPort">Server port</label>
+                    </td>
+                    <td>
+                        <input type="number" id="inpPort" placeholder="6789" value="6789" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button id="butAdd">Add Server</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script src="js/js.js"></script>

@@ -1,6 +1,7 @@
 let servers = [];
 document.addEventListener("DOMContentLoaded", onloaded);
-let websocket;
+let websocket = null;
+let first = true;
 
 
 function onloaded() {
@@ -8,7 +9,7 @@ function onloaded() {
 
     // for mouse events --> moving and resizing window
     document.onmousemove = (ev) => onmove(ev);
-    createWindow();
+    // createWindow();
 
 }
 
@@ -22,6 +23,11 @@ function onAdd() {
 
     servers.push({ socket: ip + ":" + port, name: name });
     generateTabs();
+
+    if (first) {
+        first = !first;
+        alert("You can move and resize the window")
+    }
 }
 
 function verifyInput(ip, port, name) {
@@ -51,7 +57,10 @@ function closeTab(index) {
         i++;
     }
     servers.pop();
-
+    if (servers.length == 0 && websocket != null) {
+        websocket.close();
+    }
+    resetMonitor();
     generateTabs();
 }
 
@@ -113,9 +122,9 @@ function showMonitor(index) {
 function showData(data) {
     console.log(data);
     drawDiagram("cpu", data.cpu);
-    document.querySelector("#cpuSpan").innerHTML = data.cpu + "%";
+    document.querySelector("#cpuSpan").innerHTML = "CPU usage " + data.cpu + "%";
     drawDiagram("memory", data.memory);
-    document.querySelector("#memorySpan").innerHTML = data.memory + "%";
+    document.querySelector("#memorySpan").innerHTML = "Memory usage " + data.memory + "%";
     drawDiagram("disk", data.disk);
     document.querySelector("#diskSpan").innerHTML = data.disk + "%";
     document.querySelector("#network").innerHTML = data.network + " network connections";

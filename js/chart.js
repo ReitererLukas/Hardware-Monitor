@@ -1,6 +1,5 @@
 function drawDiagram(canvasId, percent) {
     let canvas = document.querySelector("#"+canvasId);
-    console.log("canvas"+canvasId);
     
     if (canvas.getContext) {
         let ctx = canvas.getContext("2d");
