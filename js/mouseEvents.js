@@ -3,18 +3,26 @@ let diffToX, diffToY;
 
 function onmove(event) {
     let window = document.querySelector(".window");
-    if(isdragging) {
+    if (isdragging) {
         let x = event.clientX - diffToX;
         let y = event.clientY - diffToY;
-        window.style.left = x+"px";
-        window.style.top = y+"px";
-    } else if(isResizing) {
+        window.style.left = x + "px";
+        window.style.top = y + "px";
+    } else if (isResizing) {
         let rect = window.getBoundingClientRect();
         let x = event.clientX;
         let y = event.clientY;
 
-        window.style.width = (x - rect.left) + "px"; 
-        window.style.height = (y - rect.top) + "px"; 
+        let width = (x - rect.left);
+        let height = (y - rect.top);
+
+        if (width >= 570) {
+            window.style.width = width + "px";
+        }
+        if (height >= 320) {
+            window.style.height = height + "px";
+        }
+
     }
 }
 

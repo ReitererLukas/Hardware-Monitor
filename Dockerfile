@@ -7,3 +7,5 @@ RUN pip3 install psutil websockets
 COPY server.py .
 
 CMD ["python3","server.py"]
+
+# docker build -t hardware-agent .

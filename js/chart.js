@@ -34,6 +34,8 @@ function drawDiagram(canvasId, percent) {
 function clearDrawing(canvasId) {
     let canvas = document.querySelector("#"+canvasId);
     
+    if(canvas == null) return;
+
     if (canvas.getContext) {
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0,0,canvas.width, canvas.height)

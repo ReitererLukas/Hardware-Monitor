@@ -28,6 +28,7 @@ function onAdd() {
         first = !first;
         alert("You can move and resize the window")
     }
+    showMonitor(servers.length-1);
 }
 
 function verifyInput(ip, port, name) {
@@ -109,37 +110,44 @@ function showMonitor(index) {
         document.querySelector("#error").value = e.message;
     }
 
-    websocket.onerror = (e) => document.querySelector("#error").innerHTML = "Server is not reachable";
+    websocket.onerror = (e) =>{
+        
+        let windows = document.querySelector(".windows");//.innerHTML = "Server is not reachable";
+        let div = document.createElement("div");
+        div.id="error";
+        windows.innerHTML = "";
+        windows.appendChild(div);
+        let resizeRightDown = document.createElement("span");
+        resizeRightDown.id = "resizeRightDown";
+        windows.appendChild(resizeRightDown);
+    } 
 
 
     websocket.onmessage = (e) => {
         let data = JSON.parse(e.data);
+        document.querySelector("#log").value += e.data+"\n";
         showData(data);
     };
 
 }
 
 function showData(data) {
-    console.log(data);
+    // console.log(data);
     drawDiagram("cpu", data.cpu);
-    document.querySelector("#cpuSpan").innerHTML = "CPU usage " + data.cpu + "%";
+    document.querySelector("#cpuSpan").innerHTML = "CPU usage: " + data.cpu + "%";
     drawDiagram("memory", data.memory);
-    document.querySelector("#memorySpan").innerHTML = "Memory usage " + data.memory + "%";
+    document.querySelector("#memorySpan").innerHTML = "Memory usage: " + data.memory + "%";
     drawDiagram("disk", data.disk);
-    document.querySelector("#diskSpan").innerHTML = data.disk + "%";
+    document.querySelector("#diskSpan").innerHTML = "Disk usage: "+ data.disk + "%";
     document.querySelector("#network").innerHTML = data.network + " network connections";
     document.querySelector("#pids").innerHTML = data.pids + " running processes";
 }
 
-function resetMonitor(data) {
-    console.log(data);
-    clearDrawing("cpu");
-    clearDrawing("memory");
-    clearDrawing("disk");
-    document.querySelector("#cpuSpan").innerHTML = "";
-    document.querySelector("#memorySpan").innerHTML = "";
-    document.querySelector("#diskSpan").innerHTML = "";
-    document.querySelector("#network").innerHTML = "";
-    document.querySelector("#pids").innerHTML = "";
-    document.querySelector("#error").innerHTML = "";
+
+
+function resetMonitor() {
+    let windows = document.querySelector(".windows")
+    document.querySelector(".window").removeChild(windows);
+    windows = createWindows();
+    document.querySelector(".window").appendChild(windows);
 }
